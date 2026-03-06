@@ -5,7 +5,7 @@ import { userListManagerCedric } from "../data/userList";
 export const usersCedricRouter = express.Router();
 
 usersCedricRouter.get("/", (req, res) => {
-  res.json({ users: userListManagerCedric.getAllUsers() });
+  res.json(userListManagerCedric.getAllUsers());
 });
 
 usersCedricRouter.get("/username/:userName", (req, res) => {
@@ -14,21 +14,21 @@ usersCedricRouter.get("/username/:userName", (req, res) => {
   if (!user) {
     return res.status(404).json({ message: "Utilisateur non trouvé" });
   }
-  res.json({ user });
+  res.json(user );
 });
 
 usersCedricRouter.get("/group/:group", (req, res) => {
   const group = req.params.group;
-  res.json({ users: userListManagerCedric.getUsersByGroup(group) });
+  res.json(userListManagerCedric.getUsersByGroup(group));
 });
 
 usersCedricRouter.get("/exists/:userName", (req, res) => {
   const userName = req.params.userName;
-  res.json({ exists: userListManagerCedric.userExists(userName) });
+  res.json(userListManagerCedric.userExists(userName));
 });
 
 usersCedricRouter.get("/count/total", (req, res) => {
-  res.json({ totalUsers: userListManagerCedric.getTotalUsers() });
+  res.json(userListManagerCedric.getTotalUsers());
 });
 
 usersCedricRouter.get("/:id", (req, res) => {
@@ -37,7 +37,7 @@ usersCedricRouter.get("/:id", (req, res) => {
   if (!user) {
     return res.status(404).json({ message: "Utilisateur non trouvé" });
   }
-  res.json({ user });
+  res.json(user);
 });
 
 usersCedricRouter.post("/", (req, res) => {
@@ -55,7 +55,7 @@ usersCedricRouter.post("/", (req, res) => {
   if (!created) {
     return res.status(400).json({ message: "Utilisateur avec ce userName existe déjà" });
   }
-  res.json({ user });
+  res.json(user );
 });
 
 usersCedricRouter.put("/:id", (req, res) => {
@@ -74,7 +74,7 @@ usersCedricRouter.put("/:id", (req, res) => {
   if (!updated) {
     return res.status(404).json({ message: "Utilisateur non trouvé" });
   }
-  res.json({ user: updatedUser });
+  res.json(updatedUser);
 });
 
 usersCedricRouter.delete("/username/:userName", (req, res) => {

@@ -5,7 +5,7 @@ import { userListManagerAboubacar } from "../data/userList";
 export const usersAboubacarRouter = express.Router();
 
 usersAboubacarRouter.get("/", (req, res) => {
-  res.json({ users: userListManagerAboubacar.getAllUsers() });
+  res.json(userListManagerAboubacar.getAllUsers());
 });
 
 usersAboubacarRouter.get("/username/:userName", (req, res) => {
@@ -14,21 +14,21 @@ usersAboubacarRouter.get("/username/:userName", (req, res) => {
   if (!user) {
     return res.status(404).json({ message: "Utilisateur non trouvé" });
   }
-  res.json({ user });
+  res.json(user);
 });
 
 usersAboubacarRouter.get("/group/:group", (req, res) => {
   const group = req.params.group;
-  res.json({ users: userListManagerAboubacar.getUsersByGroup(group) });
+  res.json(userListManagerAboubacar.getUsersByGroup(group));
 });
 
 usersAboubacarRouter.get("/exists/:userName", (req, res) => {
   const userName = req.params.userName;
-  res.json({ exists: userListManagerAboubacar.userExists(userName) });
+  res.json(userListManagerAboubacar.userExists(userName));
 });
 
 usersAboubacarRouter.get("/count/total", (req, res) => {
-  res.json({ totalUsers: userListManagerAboubacar.getTotalUsers() });
+  res.json(userListManagerAboubacar.getTotalUsers());
 });
 
 usersAboubacarRouter.get("/:id", (req, res) => {
@@ -37,7 +37,7 @@ usersAboubacarRouter.get("/:id", (req, res) => {
   if (!user) {
     return res.status(404).json({ message: "Utilisateur non trouvé" });
   }
-  res.json({ user });
+  res.json(user);
 });
 
 usersAboubacarRouter.post("/", (req, res) => {
@@ -55,7 +55,7 @@ usersAboubacarRouter.post("/", (req, res) => {
   if (!created) {
     return res.status(400).json({ message: "Utilisateur avec ce userName existe déjà" });
   }
-  res.json({ user });
+  res.json(user);
 });
 
 usersAboubacarRouter.put("/:id", (req, res) => {
@@ -74,7 +74,7 @@ usersAboubacarRouter.put("/:id", (req, res) => {
   if (!updated) {
     return res.status(404).json({ message: "Utilisateur non trouvé" });
   }
-  res.json({ user: updatedUser });
+  res.json(updatedUser);
 });
 
 usersAboubacarRouter.delete("/username/:userName", (req, res) => {

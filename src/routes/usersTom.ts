@@ -5,7 +5,7 @@ import { userListManagerTom } from "../data/userList";
 export const usersTomRouter = express.Router();
 
 usersTomRouter.get("/", (req, res) => {
-  res.json({ users: userListManagerTom.getAllUsers() });
+  res.json(userListManagerTom.getAllUsers());
 });
 
 usersTomRouter.get("/username/:userName", (req, res) => {
@@ -14,21 +14,21 @@ usersTomRouter.get("/username/:userName", (req, res) => {
   if (!user) {
     return res.status(404).json({ message: "Utilisateur non trouvé" });
   }
-  res.json({ user });
+  res.json(user);
 });
 
 usersTomRouter.get("/group/:group", (req, res) => {
   const group = req.params.group;
-  res.json({ users: userListManagerTom.getUsersByGroup(group) });
+  res.json(userListManagerTom.getUsersByGroup(group));
 });
 
 usersTomRouter.get("/exists/:userName", (req, res) => {
   const userName = req.params.userName;
-  res.json({ exists: userListManagerTom.userExists(userName) });
+  res.json(userListManagerTom.userExists(userName));
 });
 
 usersTomRouter.get("/count/total", (req, res) => {
-  res.json({ totalUsers: userListManagerTom.getTotalUsers() });
+  res.json(userListManagerTom.getTotalUsers());
 });
 
 usersTomRouter.get("/:id", (req, res) => {
@@ -37,7 +37,7 @@ usersTomRouter.get("/:id", (req, res) => {
   if (!user) {
     return res.status(404).json({ message: "Utilisateur non trouvé" });
   }
-  res.json({ user });
+  res.json(user);
 });
 
 usersTomRouter.post("/", (req, res) => {
@@ -55,7 +55,7 @@ usersTomRouter.post("/", (req, res) => {
   if (!created) {
     return res.status(400).json({ message: "Utilisateur avec ce userName existe déjà" });
   }
-  res.json({ user });
+  res.json(user);
 });
 
 usersTomRouter.put("/:id", (req, res) => {
@@ -74,7 +74,7 @@ usersTomRouter.put("/:id", (req, res) => {
   if (!updated) {
     return res.status(404).json({ message: "Utilisateur non trouvé" });
   }
-  res.json({ user: updatedUser });
+  res.json(updatedUser);
 });
 
 usersTomRouter.delete("/username/:userName", (req, res) => {

@@ -5,7 +5,7 @@ import { userListManagerTimothe } from "../data/userList";
 export const usersTimotheRouter = express.Router();
 
 usersTimotheRouter.get("/", (req, res) => {
-  res.json({ users: userListManagerTimothe.getAllUsers() });
+  res.json(userListManagerTimothe.getAllUsers());
 });
 
 usersTimotheRouter.get("/username/:userName", (req, res) => {
@@ -14,21 +14,21 @@ usersTimotheRouter.get("/username/:userName", (req, res) => {
   if (!user) {
     return res.status(404).json({ message: "Utilisateur non trouvé" });
   }
-  res.json({ user });
+  res.json(user);
 });
 
 usersTimotheRouter.get("/group/:group", (req, res) => {
   const group = req.params.group;
-  res.json({ users: userListManagerTimothe.getUsersByGroup(group) });
+  res.json(userListManagerTimothe.getUsersByGroup(group));
 });
 
 usersTimotheRouter.get("/exists/:userName", (req, res) => {
   const userName = req.params.userName;
-  res.json({ exists: userListManagerTimothe.userExists(userName) });
+  res.json(userListManagerTimothe.userExists(userName));
 });
 
 usersTimotheRouter.get("/count/total", (req, res) => {
-  res.json({ totalUsers: userListManagerTimothe.getTotalUsers() });
+  res.json(userListManagerTimothe.getTotalUsers());
 });
 
 usersTimotheRouter.get("/:id", (req, res) => {
@@ -37,7 +37,7 @@ usersTimotheRouter.get("/:id", (req, res) => {
   if (!user) {
     return res.status(404).json({ message: "Utilisateur non trouvé" });
   }
-  res.json({ user });
+  res.json(user);
 });
 
 usersTimotheRouter.post("/", (req, res) => {
@@ -55,7 +55,7 @@ usersTimotheRouter.post("/", (req, res) => {
   if (!created) {
     return res.status(400).json({ message: "Utilisateur avec ce userName existe déjà" });
   }
-  res.json({ user });
+  res.json(user);
 });
 
 usersTimotheRouter.put("/:id", (req, res) => {
@@ -74,7 +74,7 @@ usersTimotheRouter.put("/:id", (req, res) => {
   if (!updated) {
     return res.status(404).json({ message: "Utilisateur non trouvé" });
   }
-  res.json({ user: updatedUser });
+  res.json(updatedUser);
 });
 
 usersTimotheRouter.delete("/username/:userName", (req, res) => {

@@ -5,7 +5,7 @@ import { userListManagerMalik } from "../data/userList";
 export const usersMalikRouter = express.Router();
 
 usersMalikRouter.get("/", (req, res) => {
-  res.json({ users: userListManagerMalik.getAllUsers() });
+  res.json(userListManagerMalik.getAllUsers());
 });
 
 usersMalikRouter.get("/username/:userName", (req, res) => {
@@ -14,21 +14,21 @@ usersMalikRouter.get("/username/:userName", (req, res) => {
   if (!user) {
     return res.status(404).json({ message: "Utilisateur non trouvé" });
   }
-  res.json({ user });
+  res.json(user);
 });
 
 usersMalikRouter.get("/group/:group", (req, res) => {
   const group = req.params.group;
-  res.json({ users: userListManagerMalik.getUsersByGroup(group) });
+  res.json(userListManagerMalik.getUsersByGroup(group));
 });
 
 usersMalikRouter.get("/exists/:userName", (req, res) => {
   const userName = req.params.userName;
-  res.json({ exists: userListManagerMalik.userExists(userName) });
+  res.json(userListManagerMalik.userExists(userName));
 });
 
 usersMalikRouter.get("/count/total", (req, res) => {
-  res.json({ totalUsers: userListManagerMalik.getTotalUsers() });
+  res.json(userListManagerMalik.getTotalUsers());
 });
 
 usersMalikRouter.get("/:id", (req, res) => {
@@ -37,7 +37,7 @@ usersMalikRouter.get("/:id", (req, res) => {
   if (!user) {
     return res.status(404).json({ message: "Utilisateur non trouvé" });
   }
-  res.json({ user });
+  res.json(user);
 });
 
 usersMalikRouter.post("/", (req, res) => {
@@ -55,7 +55,7 @@ usersMalikRouter.post("/", (req, res) => {
   if (!created) {
     return res.status(400).json({ message: "Utilisateur avec ce userName existe déjà" });
   }
-  res.json({ user });
+  res.json(user);
 });
 
 usersMalikRouter.put("/:id", (req, res) => {
@@ -74,7 +74,7 @@ usersMalikRouter.put("/:id", (req, res) => {
   if (!updated) {
     return res.status(404).json({ message: "Utilisateur non trouvé" });
   }
-  res.json({ user: updatedUser });
+  res.json(updatedUser);
 });
 
 usersMalikRouter.delete("/username/:userName", (req, res) => {

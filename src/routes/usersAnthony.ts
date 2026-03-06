@@ -5,7 +5,7 @@ import { userListManagerAnthony } from "../data/userList";
 export const usersAnthonyRouter = express.Router();
 
 usersAnthonyRouter.get("/", (req, res) => {
-  res.json({ users: userListManagerAnthony.getAllUsers() });
+  res.json(userListManagerAnthony.getAllUsers());
 });
 
 usersAnthonyRouter.get("/username/:userName", (req, res) => {
@@ -14,21 +14,21 @@ usersAnthonyRouter.get("/username/:userName", (req, res) => {
   if (!user) {
     return res.status(404).json({ message: "Utilisateur non trouvé" });
   }
-  res.json({ user });
+  res.json(user);
 });
 
 usersAnthonyRouter.get("/group/:group", (req, res) => {
   const group = req.params.group;
-  res.json({ users: userListManagerAnthony.getUsersByGroup(group) });
+  res.json(userListManagerAnthony.getUsersByGroup(group));
 });
 
 usersAnthonyRouter.get("/exists/:userName", (req, res) => {
   const userName = req.params.userName;
-  res.json({ exists: userListManagerAnthony.userExists(userName) });
+  res.json(userListManagerAnthony.userExists(userName));
 });
 
 usersAnthonyRouter.get("/count/total", (req, res) => {
-  res.json({ totalUsers: userListManagerAnthony.getTotalUsers() });
+  res.json(userListManagerAnthony.getTotalUsers());
 });
 
 usersAnthonyRouter.get("/:id", (req, res) => {
@@ -37,7 +37,7 @@ usersAnthonyRouter.get("/:id", (req, res) => {
   if (!user) {
     return res.status(404).json({ message: "Utilisateur non trouvé" });
   }
-  res.json({ user });
+  res.json(user);
 });
 
 usersAnthonyRouter.post("/", (req, res) => {
@@ -55,7 +55,7 @@ usersAnthonyRouter.post("/", (req, res) => {
   if (!created) {
     return res.status(400).json({ message: "Utilisateur avec ce userName existe déjà" });
   }
-  res.json({ user });
+  res.json(user);
 });
 
 usersAnthonyRouter.put("/:id", (req, res) => {
@@ -74,7 +74,7 @@ usersAnthonyRouter.put("/:id", (req, res) => {
   if (!updated) {
     return res.status(404).json({ message: "Utilisateur non trouvé" });
   }
-  res.json({ user: updatedUser });
+  res.json(updatedUser);
 });
 
 usersAnthonyRouter.delete("/username/:userName", (req, res) => {
