@@ -6,7 +6,7 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "build": "tsc",
-    "start": "tsc && node dist/index.js",
+    "start": "tsc && dotenv -- node dist/index.js",
     "dev": "dotenv -- tsc-watch --onSuccess \"node dist/index.js\""
   },
   "keywords": [],
@@ -17,6 +17,7 @@
     "@tsconfig/node24": "^24.0.4",
     "@types/cors": "^2.8.19",
     "@types/express": "^5.0.6",
+    "@types/jsonwebtoken": "^9.0.10",
     "@types/morgan": "^1.9.10",
     "@types/node": "^25.3.0",
     "cors": "^2.8.6",
@@ -27,6 +28,8 @@
     "typescript": "^5.9.3"
   },
   "dependencies": {
+    "bcryptjs": "^3.0.3",
+    "jsonwebtoken": "^9.0.3",
     "source-map-support": "^0.5.21"
   }
 }

@@ -1,6 +1,7 @@
 import express from "express";
 import { Product } from "../data/product";
 import { productListManager } from "../data/productList";
+import { authenticateJWT } from "../middleware/authenticateJWT";
 
 export const productsRouter = express.Router();
 
@@ -44,7 +45,8 @@ productsRouter.get("/:id", (req, res) => {
   res.json(product);
 });
 
-productsRouter.post("/", (req, res) => {
+// Lecture : publique. Écriture (POST / PUT / DELETE) : token JWT obligatoire.
+productsRouter.post("/", authenticateJWT, (req, res) => {
   const product = new Product(
     "",
     req.body.name,
@@ -61,7 +63,7 @@ productsRouter.post("/", (req, res) => {
   res.json(product);
 });
 
-productsRouter.put("/:id", (req, res) => {
+productsRouter.put("/:id", authenticateJWT, (req, res) => {
   const productId = req.params.id;
   const updatedProduct = new Product(
     productId,
@@ -79,7 +81,7 @@ productsRouter.put("/:id", (req, res) => {
   res.json(updatedProduct);
 });
 
-productsRouter.delete("/name/:name", (req, res) => {
+productsRouter.delete("/name/:name", authenticateJWT, (req, res) => {
   const name = req.params.name;
   const deleted = productListManager.deleteProductByName(name);
   if (!deleted) {
@@ -88,7 +90,7 @@ productsRouter.delete("/name/:name", (req, res) => {
   res.json({ message: `Produit "${name}" supprimé` });
 });
 
-productsRouter.delete("/:id", (req, res) => {
+productsRouter.delete("/:id", authenticateJWT, (req, res) => {
   const productId = req.params.id;
   const deleted = productListManager.deleteProduct(productId);
   if (!deleted) {

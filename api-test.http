@@ -26,6 +26,39 @@ Content-Type: application/json
 DELETE http://localhost:3000/tasks/2 HTTP/1.1
 
 ###############################################
+# AUTHENTIFICATION JWT
+###############################################
+
+### Inscription (public) : le rôle est toujours "user"
+POST http://localhost:3000/auth/register HTTP/1.1
+Content-Type: application/json
+
+{
+  "username": "alice",
+  "password": "secret1234"
+}
+
+### Connexion (public) : renvoie { token, user }
+# @name login
+POST http://localhost:3000/auth/login HTTP/1.1
+Content-Type: application/json
+
+{
+  "username": "admin",
+  "password": "admin123"
+}
+
+### Token réutilisé par les requêtes suivantes (extension REST Client)
+@token = {{login.response.body.token}}
+
+### Profil de l'utilisateur connecté (route protégée)
+GET http://localhost:3000/auth/me HTTP/1.1
+Authorization: Bearer {{token}}
+
+### Même route SANS token -> 401
+GET http://localhost:3000/auth/me HTTP/1.1
+
+###############################################
 # PRODUCTS
 ###############################################
 
@@ -47,8 +80,9 @@ GET http://localhost:3000/products/exists/MacBook%20Pro%2016%22 HTTP/1.1
 ### Compter le nombre total de produits
 GET http://localhost:3000/products/count/total HTTP/1.1
 
-### Créer un nouveau produit
+### Créer un nouveau produit (token requis)
 POST http://localhost:3000/products HTTP/1.1
+Authorization: Bearer {{token}}
 Content-Type: application/json
 
 {
@@ -59,8 +93,9 @@ Content-Type: application/json
   "stock": 10
 }
 
-### Modifier un produit existant
+### Modifier un produit existant (token requis)
 PUT http://localhost:3000/products/1 HTTP/1.1
+Authorization: Bearer {{token}}
 Content-Type: application/json
 
 {
@@ -71,8 +106,13 @@ Content-Type: application/json
   "stock": 12
 }
 
-### Supprimer un produit par ID
+### Supprimer un produit par ID (token requis)
 DELETE http://localhost:3000/products/5 HTTP/1.1
+Authorization: Bearer {{token}}
 
-### Supprimer un produit par nom
+### Supprimer un produit par nom (token requis)
 DELETE http://localhost:3000/products/name/Nouveau%20Produit%20Test HTTP/1.1
+Authorization: Bearer {{token}}
+
+### Supprimer SANS token -> 401
+DELETE http://localhost:3000/products/5 HTTP/1.1
